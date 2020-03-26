@@ -7,22 +7,18 @@ $(document).ready(function(){
 	
 	//Lets save the cell width in a variable for easy control
 	var cw = 10;
-	var d;
-	var food;
+	var food = [];
 	var score;
-   	var level;
 	
 	//Lets create the snake now
 	var snake_array; //an array of cells to make up the snake
 	
 	function init()
 	{
-		d = "down"; //default direction
 		create_snake();
 		create_food(); //Now we can see the food particle
 		//finally lets display the score
 		score = 0;
-     level = 1;
 		
 		//Lets move the snake now using a timer which will trigger the paint function
 		//every 60ms
@@ -33,7 +29,7 @@ $(document).ready(function(){
 	
 	function create_snake()
 	{
-		var length = 5; //Length of the snake
+		var length = 2; //Length of the snake
 		snake_array = []; //Empty array to start with
 		for(var i = length-1; i>=0; i--)
 		{
@@ -45,41 +41,54 @@ $(document).ready(function(){
 	//Lets create the food now
 	function create_food()
 	{
-		food = {
-			x: Math.round(Math.random()*(w-cw)/cw), 
-			y: Math.round(Math.random()*(h-cw)/cw), 
-		};
-		//This will create a cell with x/y between 0-44
-		//Because there are 45(450/10) positions accross the rows and columns
+		for(var i=0;i<30;i++)
+		{
+			food.push({x: Math.round(Math.random()*(w-cw)/cw),y: Math.round(Math.random()*(h-cw)/cw),z: "red"});
+			food.push({x: Math.round(Math.random()*(w-cw)/cw),y: Math.round(Math.random()*(h-cw)/cw),z: "green"});
+		}
 	}
 	
 	//Lets paint the snake now
 	function paint()
 	{
-		//To avoid the snake trail we need to paint the BG on every frame
-		//Lets paint the canvas now
 		ctx.fillStyle = "white";
 		ctx.fillRect(0, 0, w, h);
 		ctx.strokeStyle = "black";
 		ctx.strokeRect(0, 0, w, h);
 		
-		//The movement code for the snake to come here.
-		//The logic is simple
-		//Pop out the tail cell and place it infront of the head cell
 		var nx = snake_array[0].x;
 		var ny = snake_array[0].y;
-		//These were the position of the head cell.
-		//We will increment it to get the new head position
-		//Lets add proper direction based movement now
-		if(d == "right") nx++;
-		else if(d == "left") nx--;
-		else if(d == "up") ny--;
-		else if(d == "down") ny++;
 
-		if(nx+1==food.x && ny == food.y)nx++;
-		else if(nx-1==food.x && ny == food.y)nx--;
-		else if(nx==food.x && ny == food.y+1)ny--;
-		else if(nx==food.x && ny == food.y-1)ny++;
+		ny++;
+
+		if(food.some(food => nx+1==food.x && ny == food.y))
+		{
+			nx;
+			var temp = food.indexOf((food.x == nx,food.y == ny))
+			food.splice(temp,1);
+			score++;
+		}
+		else if(food.some(food => nx-1==food.x && ny == food.y))
+		{
+			nx--;
+			var temp = food.indexOf((food.x == nx,food.y == ny))
+			food.splice(temp,1);
+			score++;
+		}
+		else if(food.some(food => nx==food.x && ny-1 == food.y))
+		{
+			ny++;
+			var temp = food.indexOf((food.x == nx,food.y == ny))
+			food.splice(temp,1);
+			score++;
+		}
+		else if(food.some(food => nx==food.x && ny+1 == food.y))		
+		{
+			ny--;
+			var temp = food.indexOf((food.x == nx,food.y == ny))
+			food.splice(temp,1);
+			score++;
+		}
 		
 		//Lets add the game over clauses now
 		//This will restart the game if the snake hits the wall
@@ -97,13 +106,9 @@ $(document).ready(function(){
 		//The logic is simple
 		//If the new head position matches with that of the food,
 		//Create a new head instead of moving the tail
-		if(nx == food.x && ny == food.y)
+		if(food.some(food => nx == food.x && ny == food.y))
 		{
-			var tail = {x: nx, y: ny};
-			score++;
-       
-			//Create new food
-			create_food();
+			var tail = {x: nx, y: ny};      
 		}
 		else
 		{
@@ -121,13 +126,17 @@ $(document).ready(function(){
 			paint_cell(c.x, c.y, "blue");
 		}
 		
-		//Lets paint the food
-		paint_cell(food.x, food.y, "red");
+		for(var i=0;i<30;i++){
+			if(food[i].z == "red"){
+				paint_cell(food[i].x, food[i].y, "red");
+			}
+			else if(food[i].z == "green"){
+				paint_cell(food[i].x, food[i].y, "green");
+			}
+		}
 		//Lets paint the score
 		var score_text = "Score: " + score;
-     var level_text = "Level: " + level;
 		ctx.fillText(score_text, 5, h-5);
-     ctx.fillText(level_text, 60, h-5);
 	}
 	
 	//Lets first create a generic function to paint cells
@@ -150,22 +159,4 @@ $(document).ready(function(){
 		}
 		return false;
 	}
-	
-	//Lets add the keyboard controls now
-	$(document).keydown(function(e){
-		var key = e.which;
-		//We will add another clause to prevent reverse gear
-		if(key == "37" && d != "right") d = "left";
-		else if(key == "38" && d != "down") d = "up";
-		else if(key == "39" && d != "left") d = "right";
-		else if(key == "40" && d != "up") d = "down";
-		//The snake is now keyboard controllable
-	})
-	
-	
-	
-	
-	
-	
-	
 })
