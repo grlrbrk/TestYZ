@@ -17,13 +17,14 @@ var agent;
 
     window.setInterval(() => {
         ctx.clearRect(0,0, canvas.width, canvas.height);
-        for(let i=0;i<10;i++){
+        for(let i=0;i<fruit.length;i++){
             fruit[i].draw();
         }    
 
         agent.update();
         agent.draw();
         var closest = agent.findClosest(fruit)
+        console.log(closest);
 
         if(this.x!=closest[0].x && this.y!=closest[0].y){
             agent.moveToClosest(closest[0]);
