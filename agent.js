@@ -1,6 +1,6 @@
 function Agent(){
-    this.x = 0;
-    this.y = 0;
+    this.x = (Math.floor(Math.random() * rows - 1) + 1) * scale;
+    this.y = (Math.floor(Math.random() * columns - 1) + 1) * scale;
     this.xSpeed = scale * 1;
     this.ySpeed = 0;
     this.score = 0;
@@ -13,20 +13,20 @@ function Agent(){
         this.x += this.xSpeed;
         this.y += this.ySpeed;
 
-        if (this.x > canvas.width) {
-            this.x = 0;
+        if (this.x >= canvas.width) {
+          this.changeDirection('Left');
         }
       
-        if (this.y > canvas.height) {
-            this.y = 0;
+        if (this.y >= canvas.height) {
+          this.changeDirection('Up');
         }
       
-        if (this.x < 0) {
-            this.x = canvas.width;
+        if (this.x <= 0) {
+          this.changeDirection('Right');
         }
       
-        if (this.y < 0) {
-            this.y = canvas.height;
+        if (this.y <= 0) {
+          this.changeDirection('Down');
         }
 
     }
@@ -90,7 +90,7 @@ function Agent(){
           if(this.x>closest.x){
             this.changeDirection('Left');
           }
-          if(this.y<closest.y){
+          if(this.y>closest.y){
             this.changeDirection('Up');
           }
           if(this.y<closest.y){
