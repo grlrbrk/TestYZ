@@ -25,13 +25,13 @@ var agent;
         agent.draw();
         var closest = agent.findClosest(fruit)
 
-        if(this.x!=closest.x && this.y!=closest.y){
-            agent.moveToClosest(closest);
+        if(this.x!=closest[0].x && this.y!=closest[0].y){
+            agent.moveToClosest(closest[0]);
         }
 
         if(agent.eat(fruit)){
             //TO:DO
-            //deleteFood();
+            fruit.splice(closest[1],1);
         }
     }, 250);
 }());

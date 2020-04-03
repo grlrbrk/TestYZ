@@ -11,4 +11,5 @@ function Fruit(){
         ctx.fillStyle = "red";
         ctx.fillRect(this.x, this.y, scale, scale);
     }
+
 }

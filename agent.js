@@ -59,13 +59,14 @@ function Agent(){
           var diffY = pt1.y - pt2.y;
           return (diffX*diffX+diffY*diffY);
         }
-
-        closest = fruit[0];
+        var closest = [];
+        closest[0] = fruit[0];
         shortestDistance  = distSquared(currentPosition, fruit[0]);
         for (i = 0; i < fruit.length; i++) {
           var d = distSquared(currentPosition, fruit[i]);
           if (d < shortestDistance) {
-              closest = fruit[i];
+              closest[0] = fruit[i];
+              closest[1] = i;
               shortestDistance = d;
           }
         }
