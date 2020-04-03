@@ -1,4 +1,4 @@
-function Fruit(){
+function RedFruit(){
     this.x;
     this.y;
 
@@ -8,7 +8,7 @@ function Fruit(){
     }
     
     this.draw = function(){
-        ctx.fillStyle = "green";
+        ctx.fillStyle = "red";
         ctx.fillRect(this.x, this.y, scale, scale);
     }
 
