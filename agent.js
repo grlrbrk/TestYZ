@@ -46,9 +46,12 @@ function Agent(){
             this.ySpeed = 0;
             break;
           case 'Right':
-            this.xSpeed = scale * 1;
+            this.xSpeed = scale * 2;
             this.ySpeed = 0;
             break;
+          case 'No Action':
+            this.xSpeed = 0;
+            this.ySpeed = 0;
         }
       }
   

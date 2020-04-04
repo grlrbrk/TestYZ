@@ -53,6 +53,10 @@ var agent2;
             agent.score++;
             document.getElementById("agent1").innerHTML = agent.score;
         }
+        if(agent.eat(redFruit)){
+            agent.score--;
+            document.getElementById("agent1").innerHTML = agent.score;
+        }
         //FOR AGENT : 2 
         agent2.update();
         agent2.draw();
@@ -66,6 +70,10 @@ var agent2;
             fruit.splice(closest2[1],1);
             agent2.score++;
             document.getElementById("agent2").innerHTML = agent2.score;
+        }
+        if(agent2.eat(redFruit)){
+            agent2.score--;
+            document.getElementById("agent2").innerHTML = agent.score;
         }
 
         //FOR AGENT : 3 
@@ -81,6 +89,10 @@ var agent2;
             fruit.splice(closest3[1],1);
             agent3.score++;
             document.getElementById("agent3").innerHTML = agent3.score;
+        }
+        if(agent3.eat(redFruit)){
+            agent3.score--;
+            document.getElementById("agent3").innerHTML = agent.score;
         }
     }
     }, 250);
