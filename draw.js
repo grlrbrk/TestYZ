@@ -97,8 +97,3 @@ var agent2;
     }
     }, 250);
 }());
-
-window.addEventListener('keydown',((evt) => {
-    const direction = evt.key.replace('Arrow', '');
-    agent.changeDirection(direction);
-}))
