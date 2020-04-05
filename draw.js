@@ -41,7 +41,7 @@ var agent2;
 
         //FOR AGENT : 1
         agent.update();
-        agent.draw();
+        agent.draw("orange");
         var closest = agent.findClosest(fruit)
 
         if(this.x!=closest[0].x && this.y!=closest[0].y){
@@ -59,7 +59,7 @@ var agent2;
         }
         //FOR AGENT : 2 
         agent2.update();
-        agent2.draw();
+        agent2.draw("blue");
         var closest2 = agent2.findClosest(fruit)
 
         if(this.x!=closest2[0].x && this.y!=closest2[0].y){
@@ -78,7 +78,7 @@ var agent2;
 
         //FOR AGENT : 3 
         agent3.update();
-        agent3.draw();
+        agent3.draw("gray");
         var closest3 = agent3.findClosest(fruit)
 
         if(this.x!=closest3[0].x && this.y!=closest3[0].y){

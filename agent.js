@@ -5,8 +5,8 @@ function Agent(){
     this.ySpeed = 0;
     this.score = 0;
 
-    this.draw = function(){
-        ctx.fillStyle = "#FFFFFF";
+    this.draw = function(color){
+        ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, scale, scale);
     }
     this.update = function() {
